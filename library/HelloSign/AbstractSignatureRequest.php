@@ -298,12 +298,16 @@ abstract class AbstractSignatureRequest extends AbstractResource
     {
         $custom_fields = isset($this->custom_fields) ? json_decode($this->custom_fields) : array();
 
-        $custom_fields[] = array(
+        $custom_field = array(
             'name'     => $field_name,
-            'value'    => $value,
-            'editor'   => $editor,
-            'required'   => $required
+            'value'    => $value
         );
+
+        if ($editor !== null) $custom_field['editor'] = $editor;
+
+        if ($required !== null) $custom_field['required'] = $required;
+
+        $custom_fields[] = $custom_field;
 
         $this->custom_fields = json_encode($custom_fields);
 
